@@ -1,0 +1,5 @@
+{
+  "name": "Alerts UA",
+  "content_in_root": true,
+  "homeassistant": "2025.6.0"
+}

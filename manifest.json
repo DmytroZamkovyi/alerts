@@ -1,0 +1,14 @@
+{
+  "domain": "alerts",
+  "name": "Alerts UA",
+  "version": "0.1.0",
+  "config_flow": true,
+  "single_config_entry": true,
+  "integration_type": "service",
+  "iot_class": "cloud_polling",
+  "dependencies": [],
+  "requirements": [],
+  "codeowners": [],
+  "issue_tracker": "https://github.com/DmytroZamkovyi/alerts/issues",
+  "documentation": "https://github.com/DmytroZamkovyi/alerts"
+}

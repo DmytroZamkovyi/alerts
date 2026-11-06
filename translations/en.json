@@ -1,0 +1,200 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Alerts (alerts.in.ua)",
+        "description": "An alerts.in.ua API token is required. It is issued free of charge on request via the form on alerts.in.ua (developers section). Regions are added after setup with the \"Add region\" button.",
+        "data": {
+          "token": "API token"
+        }
+      },
+      "reauth_confirm": {
+        "title": "New token",
+        "description": "alerts.in.ua rejected the token. Enter a valid token.",
+        "data": {
+          "token": "API token"
+        }
+      },
+      "reconfigure": {
+        "title": "Change token",
+        "data": {
+          "token": "API token"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Invalid token.",
+      "forbidden": "Access forbidden (token blocked or request from a region where the API is unavailable).",
+      "cannot_connect": "Failed to connect to alerts.in.ua."
+    },
+    "abort": {
+      "already_configured": "Already configured. Add regions with the \"Add region\" button.",
+      "single_instance_allowed": "Already configured. Add regions with the \"Add region\" button.",
+      "reauth_successful": "Token updated.",
+      "reconfigure_successful": "Changes saved."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Polling",
+        "data": {
+          "scan_interval": "Active alerts polling interval",
+          "history_interval": "History refresh interval"
+        },
+        "data_description": {
+          "scan_interval": "Seconds. API limit is 8–10 requests per minute; one request serves all regions.",
+          "history_interval": "Minutes. Month history for statistics, one request per oblast (limit 2 per minute)."
+        }
+      }
+    }
+  },
+  "config_subentries": {
+    "region": {
+      "initiate_flow": {
+        "user": "Add region",
+        "reconfigure": "Change region"
+      },
+      "entry_type": "Region",
+      "step": {
+        "user": {
+          "title": "Add region",
+          "description": "Choose an oblast (or Kyiv, Sevastopol, Crimea).",
+          "data": {
+            "oblast": "Oblast"
+          }
+        },
+        "location": {
+          "title": "Add region",
+          "description": "Region within \"{oblast}\": the whole oblast, a raion, a city or a hromada. An alert in the raion or oblast also turns on the hromada alert; an alert in only part of the region gives the \"Partial\" state.",
+          "data": {
+            "uid": "Region",
+            "name": "Name",
+            "stat_types": "Alert types for duration and statistics"
+          },
+          "data_description": {
+            "name": "Optional. Defaults to the region name.",
+            "stat_types": "Used by alert start, duration and statistics sensors. Air raid only by default."
+          }
+        },
+        "reconfigure": {
+          "title": "Change region",
+          "data": {
+            "name": "Name",
+            "stat_types": "Alert types for duration and statistics"
+          },
+          "data_description": {
+            "stat_types": "Used by alert start, duration and statistics sensors. Air raid only by default."
+          }
+        }
+      },
+      "error": {
+        "unknown_location": "Unknown region."
+      },
+      "abort": {
+        "already_configured": "This region is already added.",
+        "reconfigure_successful": "Changes saved."
+      }
+    }
+  },
+  "selector": {
+    "alert_type": {
+      "options": {
+        "air_raid": "Air raid alert",
+        "artillery_shelling": "Artillery shelling threat",
+        "urban_fights": "Urban fights",
+        "chemical": "Chemical threat",
+        "nuclear": "Nuclear threat"
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "air_raid": {
+        "name": "Air raid alert"
+      },
+      "artillery_shelling": {
+        "name": "Artillery shelling threat"
+      },
+      "urban_fights": {
+        "name": "Urban fights"
+      },
+      "chemical": {
+        "name": "Chemical threat"
+      },
+      "nuclear": {
+        "name": "Nuclear threat"
+      }
+    },
+    "sensor": {
+      "status": {
+        "name": "Status",
+        "state": {
+          "none": "No alert",
+          "partial": "Partial",
+          "active": "Alert"
+        }
+      },
+      "level": {
+        "name": "Level",
+        "state": {
+          "none": "None",
+          "red": "Red",
+          "yellow": "Yellow"
+        }
+      },
+      "threats": {
+        "name": "Threats"
+      },
+      "alert_start": {
+        "name": "Alert start"
+      },
+      "state_duration": {
+        "name": "State duration"
+      },
+      "last_end": {
+        "name": "Last all clear"
+      },
+      "last_duration": {
+        "name": "Last alert duration"
+      },
+      "count_24h": {
+        "name": "Alerts count: 24 hours"
+      },
+      "count_7d": {
+        "name": "Alerts count: 7 days"
+      },
+      "count_30d": {
+        "name": "Alerts count: 30 days"
+      },
+      "duration_24h": {
+        "name": "Alerts duration: 24 hours"
+      },
+      "duration_7d": {
+        "name": "Alerts duration: 7 days"
+      },
+      "duration_30d": {
+        "name": "Alerts duration: 30 days"
+      },
+      "history_updated": {
+        "name": "History updated"
+      }
+    },
+    "event": {
+      "events": {
+        "name": "Events",
+        "state_attributes": {
+          "event_type": {
+            "state": {
+              "alert_started": "Alert started",
+              "alert_ended": "All clear",
+              "alert_updated": "Level or threats changed",
+              "partial_started": "Alert in part of the region",
+              "partial_ended": "All clear in part of the region"
+            }
+          }
+        }
+      }
+    }
+  }
+}
